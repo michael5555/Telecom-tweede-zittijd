@@ -16,16 +16,14 @@ class MembershipQuerySource : public Element {
 		const char *processing() const	{ return PUSH; }
 		int configure(Vector<String>&, ErrorHandler*);
 
-		//void run_timer(Timer*);
-
-		static int writer(const String &conf, Element *e, void *thunk, ErrorHandler* errh);
-		static int ipwriter(const String &conf, Element *e, void *thunk, ErrorHandler* errh);
-		void add_handlers();
-
 		void push(int,Packet*);
 
 	private:
 		Packet* make_packet();
+		void setIPFields(click_ip*,WritablePacket *);
+		void setIGMPFields(igmp_query_packet*);
+		bool compareSubNetWork(IPAddress,IPAddress);
+
 		int s;
 		int qrv;
 		uint8_t maxrespcode;

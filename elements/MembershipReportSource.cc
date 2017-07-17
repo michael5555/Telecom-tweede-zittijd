@@ -14,7 +14,7 @@ MembershipReportSource::~MembershipReportSource()
 {}
 
 int MembershipReportSource::configure(Vector<String> &conf, ErrorHandler *errh) {
-	if (cp_va_kparse(conf, this, errh, "SRC", cpkM, cpIPAddress, &_srcIP, cpEnd) < 0) return -1;
+	if (cp_va_kparse(conf, this, errh, "SRC", cpkM, cpIPAddress, &_srcIP,"GW", cpkM, cpIPAddress, &_gwIP, cpEnd) < 0) return -1;
 	_dstIP = IPAddress(String("224.0.0.22"));
 
 
@@ -70,7 +70,7 @@ int MembershipReportSource::writer(const String &conf, Element *e, void *thunk, 
 		if (send != -1) {
 			Packet* p = me->make_packet(send);
 			me->output(0).push(p);
-			click_chatter("I left %s FeelsBadMan", address.unparse().c_str()); //add address to this!
+			click_chatter("I left %s", address.unparse().c_str()); //add address to this!
 		}
 		break;
 	case 1:
@@ -96,7 +96,7 @@ int MembershipReportSource::writer(const String &conf, Element *e, void *thunk, 
 		if (send != -1) {
 			Packet* p = me->make_packet(send);
 			me->output(0).push(p);
-			click_chatter("I joined %s FeelsGoodMan", address.unparse().c_str()); //add address to this!
+			click_chatter("I joined %s", address.unparse().c_str()); //add address to this!
 		}
 		break;
 	}

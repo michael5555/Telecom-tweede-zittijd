@@ -26,6 +26,7 @@ class MembershipReportSource : public Element {
 
 		IPAddress _srcIP;
 		IPAddress _dstIP;
+		IPAddress _gwIP;
 		uint32_t _sequence;
 
 		Vector<struct group_record> groups;
