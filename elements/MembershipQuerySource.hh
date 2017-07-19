@@ -6,37 +6,37 @@
 
 CLICK_DECLS
 
-class MembershipQuerySource : public Element { 
-	public:
-		MembershipQuerySource();
-		~MembershipQuerySource();
-		
-		const char *class_name() const	{ return "MembershipQuerySource"; }
-		const char *port_count() const	{ return "0-1/2"; }
-		const char *processing() const	{ return PUSH; }
-		int configure(Vector<String>&, ErrorHandler*);
+class MembershipQuerySource : public Element
+{
+  public:
+	MembershipQuerySource();
+	~MembershipQuerySource();
 
-		void push(int,Packet*);
+	const char *class_name() const { return "MembershipQuerySource"; }
+	const char *port_count() const { return "0-1/2"; }
+	const char *processing() const { return PUSH; }
+	int configure(Vector<String> &, ErrorHandler *);
 
-	private:
-		Packet* make_packet();
-		void setIPFields(click_ip*,WritablePacket *);
-		void setIGMPFields(igmp_query_packet*);
-		bool compareSubNetWork(IPAddress,IPAddress);
+	void push(int, Packet *);
 
-		int s;
-		int qrv;
-		uint8_t maxrespcode;
-		uint8_t qqic;
-		IPAddress group;
+  private:
+	Packet *make_packet();
+	void setIPFields(click_ip *, WritablePacket *);
+	void setIGMPFields(igmp_query_packet *);
+	bool compareSubNetWork(IPAddress, IPAddress);
 
-		IPAddress _srcIP;
-		IPAddress _dstIP;
-		uint32_t _sequence;
+	int s;
+	int qrv;
+	uint8_t maxrespcode;
+	uint8_t qqic;
+	IPAddress group;
 
-		Vector<struct routing_state> state;
+	IPAddress _srcIP;
+	IPAddress _dstIP;
+	uint32_t _sequence;
+
+	Vector<struct routing_state> state;
 };
 
 CLICK_ENDDECLS
 #endif
-

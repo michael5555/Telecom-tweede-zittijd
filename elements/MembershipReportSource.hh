@@ -6,32 +6,32 @@
 
 CLICK_DECLS
 
-class MembershipReportSource : public Element {
-	public:
-		MembershipReportSource();
-		~MembershipReportSource();
+class MembershipReportSource : public Element
+{
+  public:
+	MembershipReportSource();
+	~MembershipReportSource();
 
-		const char *class_name() const { return "MembershipReportSource"; }
-		const char *port_count() const { return "0-1/2"; }
-		const char *processing() const { return PUSH; }
-		int configure(Vector<String>&, ErrorHandler*);
+	const char *class_name() const { return "MembershipReportSource"; }
+	const char *port_count() const { return "0-1/2"; }
+	const char *processing() const { return PUSH; }
+	int configure(Vector<String> &, ErrorHandler *);
 
-		void push(int, Packet*);
+	void push(int, Packet *);
 
-		static int writer(const String &conf, Element *e, void *thunk, ErrorHandler* errh);
-		void add_handlers();
+	static int writer(const String &conf, Element *e, void *thunk, ErrorHandler *errh);
+	void add_handlers();
 
-	private:
-		Packet* make_packet(int);
+  private:
+	Packet *make_packet(int);
 
-		IPAddress _srcIP;
-		IPAddress _dstIP;
-		IPAddress _gwIP;
-		uint32_t _sequence;
+	IPAddress _srcIP;
+	IPAddress _dstIP;
+	IPAddress _gwIP;
+	uint32_t _sequence;
 
-		Vector<struct group_record> groups;
+	Vector<struct group_record> groups;
 };
 
 CLICK_ENDDECLS
 #endif
-
